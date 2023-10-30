@@ -24,7 +24,7 @@ def all_products(search,from_date,end_date,page,limit,db,status):
     return pagination(products, page, limit)
 
 
-def add_products(form,db):
+def add_products(form,url,db):
     new_products=Products(
                    name=form.name,
                    model=form.model,
@@ -37,7 +37,7 @@ def add_products(form,db):
     db.commit()
     db.refresh(new_products)
     basement_add(name=form.name, number=form.number, db=db)
-    return{"data" : "User add base"}
+    return new_products.id
 
 def update_products(id,form,db):
     if one_product(id=form.id,db=db) is None:

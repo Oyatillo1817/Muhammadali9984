@@ -1,11 +1,9 @@
 import datetime
 
 from sqlalchemy import Column, Integer, String, Boolean,Float,Text,ForeignKey,Date,DateTime,func
-
 from sqlalchemy.orm import relationship
-
+# from sqlalchemy_utils import URLType
 from db import Base
-
 
 class Products(Base):
     __tablename__ = "Products"
@@ -16,6 +14,7 @@ class Products(Base):
     real_price = Column(Float, nullable = True)
     trade_price = Column(Float, nullable = True)
     description = Column(Text,nullable=True)
+    # picture = Column(URLType, nullable=True)
     status = Column(Boolean, nullable = True ,default=True)
     date = Column(Date,nullable=True,default=func.now())
 

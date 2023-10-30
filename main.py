@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 
-from routes import auth, users, customers,products,trade,order,balance,income,expence,basementment
+from routes import auth, users, customers,products,trade,order,balance,income,expence,basement
 
 from db import Base, engine
 
 Base.metadata.create_all(bind=engine)
 
-app = FastApi_Python3_1(
+app = FastAPI(
     title="Shablon",
     responses={200: {'description': 'Ok'}, 201: {'description': 'Created'}, 400: {'description': 'Bad Request'},
                401: {'desription': 'Unauthorized'}}
@@ -60,7 +60,7 @@ app.include_router(
 
 app.include_router(
     order.router_order,
-    prefix="/orders",
+    prefix="/order",
     tags=['Orders section']
     )
 
@@ -93,3 +93,22 @@ app.include_router(
     prefix="/basement",
     tags=['Basement section']
     )
+
+
+try:
+    db = SessionLocal()
+    new_user_db = Users(
+        name='www',
+        username='www',
+        number='form.number',
+        password=get_password_hash('000'),
+        roll='www',
+        status=True,
+
+    )
+
+    db.add(new_user_db)
+    db.commit()
+    db.refresh(new_user_db)
+except Exception as x:
+    print(x, 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
